@@ -1,6 +1,6 @@
 # TAREAS — FACEBOT (proyecto IAEVENT)
 
-> **Regla de orden:** las tareas faltantes siguen un orden secuencial. Cuando una persona termina su tarea, la siguiente en la lista puede iniciar; **no hay tareas en paralelo**.
+> **Regla de orden:** las tareas faltantes siguen un orden secuencial. Cuando una persona termina su tarea, la siguiente en la lista puede iniciar; **no hay tareas en paralelos**.
 
 ## Equipo
 
@@ -9,6 +9,17 @@
 3. Yamil
 4. Rafael
 5. Alcides
+
+---
+
+## Estado verificado (revisión reciente)
+
+- **Estructura:** verificada contra la estructura oficial de AGENTS.md (S5): todos los archivos presentes (raíz: `AGENTS.md`, `TAREAS.md`, `README.md`, `requirements.txt`, `.gitignore`, `.env.example`; `backend/`: `main.py`, `api/{routes.py, schemas.py}`, `camera/camera_service.py`, `recognition/face_service.py`, `database/{repository.py, profiles.json}`, `services/{recommendation.py, session_service.py}`; `frontend/`: `main.py`, `screens/{welcome, waiting, processing, recognized, unknown}.py`, `components/{profile_card, interest_card, recommendation_card}.py`, `services/api_client.py`; `tests/`: `test_api.py`, `test_database.py`, `test_recommendations.py`; `docs/`: `architecture.md`, `api_contract.md`, `installation.md`, `team_workflow.md`).
+- **Pruebas:** `pytest` re-ejecutado: **15 passed, 1 warning** (StarletteDeprecationWarning de httpx en TestClient).
+- **Git:** estado limpio (`## main...origin/main`); HEAD = `d4a388f`; `ls-remote` → `refs/heads/main = d4a388fda975fadddb5f2d9f0a8e954f42381b60`.
+- **Endpoints (verificados en vivo):** `GET /api/status` → `{"status":"online","application":"FACEBOT"}`; `GET /api/session` → `{"status":"waiting","person":null}`; `GET /api/camera/status` → `{"status":"disconnected","camera_available":false}`; `GET /api/person/USR001` → perfil de Carlos; `POST /api/session/reset` → `{"status":"waiting","person":null}`.
+
+**A todo momento, a quién le toca primero: Rafael (T13 — M4: Navegación y estados del frontend).**
 
 ---
 
