@@ -1,0 +1,19 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+
+# Local environment / secrets (S9)
+.env
+.env.*.local
+
+# Coverage / build
+.coverage
+htmlcov/
+build/
+dist/
+
+# Camera/biometric artifacts (not committed by default, S10)
+*.mp4

@@ -1,0 +1,54 @@
+{
+  "profiles": [
+    {
+      "id": "USR001",
+      "name": "Carlos",
+      "career": "Ingenieria de Sistemas",
+      "consent": true,
+      "interests": ["Inteligencia Artificial", "Robótica", "Videojuegos"],
+      "recommendations": [
+        {
+          "title": "Proyecto de IA",
+          "description": "Proyecto universitario de inteligencia artificial",
+          "category": "Inteligencia Artificial"
+        }
+      ]
+    },
+    {
+      "id": "USR002",
+      "name": "Valeria",
+      "career": "Diseño Industrial",
+      "consent": true,
+      "interests": ["Diseño de productos", "Jardinería"],
+      "recommendations": [
+        {
+          "title": "Diseño de productos",
+          "description": "Proyecto de diseño industrial con impacto real",
+          "category": "Diseño de productos"
+        }
+      ]
+    },
+    {
+      "id": "USR003",
+      "name": "Mateo",
+      "career": "Administracion de Empresas",
+      "consent": false,
+      "interests": ["Finanzas"],
+      "recommendations": []
+    },
+    {
+      "id": "USR004",
+      "name": "Lucía",
+      "career": "Biología Ambiental",
+      "consent": true,
+      "interests": ["Biología ambiental", "Educación"],
+      "recommendations": [
+        {
+          "title": "Ciencia ciudadana",
+          "description": "Monitoreo ambiental con la comunidad local",
+          "category": "Biología ambiental"
+        }
+      ]
+    }
+  ]
+}
