@@ -1,6 +1,6 @@
 # TAREAS — FACEBOT (proyecto IAEVENT)
 
-> **Regla de orden:** esta lista define el orden de ejecución. Cuando una persona termina su tarea, la siguiente en la lista puede iniciar; **no hay tareas en paralelo**.
+> **Regla de orden:** las tareas faltantes siguen un orden secuencial. Cuando una persona termina su tarea, la siguiente en la lista puede iniciar; **no hay tareas en paralelo**.
 
 ## Equipo
 
@@ -12,144 +12,56 @@
 
 ---
 
-## Tarea 1 — Said — M1: Estructura del proyecto
+## Tareas completadas (base funcional creada)
 
-Crear la estructura oficial del proyecto:
+| Tarea | Persona | Milestone | Estado |
+|-------|---------|-----------|--------|
+| T1 | Said | M1: Estructura del proyecto | Hecho |
+| T2 | Diego | M1: Entorno de desarrollo y dependencias | Hecho |
+| T3 | Yamil | M2: FastAPI, Pydantic y endpoints de salud | Hecho (verificado en vivo) |
+| T4 | Rafael | M2: Repositorio de perfiles | Hecho |
+| T5 | Said | M2: Endpoints de sesión | Hecho (verificado en vivo) |
+| T6 | Diego | M2: Tests del repositorio y endpoints | Hecho (`pytest`: 15 passed) |
+| T7 | Yamil | M3: Inicialización de Flet y pantallas skeleton | Esqueleto |
+| T8 | Rafael | M3: Pantallas de bienvenida y espera (skeletons) | Esqueleto |
+| T9 | Alcides | M3: Pantallas de procesamiento y visitante desconocido (skeletons) | Esqueleto |
+| T10 | Said | M3: Pantalla de visitante reconocido (skeleton) | Esqueleto |
+| T11 | Diego | M4: Tarjetas y componentes visuales (skeletons) | Esqueleto |
+| T12 | Yamil | M4: Cliente HTTP (`api_client.py`) | Parcial (sin polling real) |
+| T15 | Said | M5: Servicio de cámara (`get_status()` funcional) | Parcial (sin captura de frames) |
+| T17 | Yamil | M5: Sesión y recomendaciones (`session_service.py`, `recommendation.py`) | Parcial (sin integración) |
+| T20 | Said | M6: Documentación (`docs/*.md`) | Hecho |
+| T21 | Diego | M6: Verificación y cierre (`pytest`: 15 passed) | Hecho |
 
-- Carpetas: `backend/api`, `backend/camera`, `backend/recognition`, `backend/database`, `backend/services`, `frontend/screens`, `frontend/components`, `frontend/services`, `tests`, `docs`.
-- Archivos raíz: `README.md`, `requirements.txt`, `.gitignore`, `.env.example` (contenido sugerido: `HOST`, `PORT`, `API_BASE_URL`, `CAMERA_SOURCE`).
+---
 
-**Criterio de aceptación:** existe la estructura y `AGENTS.md` está en la raíz del proyecto.
+## Tareas faltantes — orden de ejecución
 
-## Tarea 2 — Diego — M1: Entorno de desarrollo y dependencias
+1. **Rafael — T13 — M4: Navegación y estados del frontend**
+   Navegación entre pantallas (`welcome` → `waiting` → `processing` / `recognized` / `unknown`) y manejo de estados (cargando, sin conexión, datos recibidos).
+   **Criterio:** la app navega y maneja estados.
 
-- Crear el entorno virtual: `python -m venv .venv`.
-- Instalar las dependencias estables: `fastapi`, `uvicorn`, `opencv-python`, `pydantic`, `pytest`, `httpx`.
-- Verificar: `python -c "import fastapi, uvicorn, cv2, pydantic, httpx, pytest"`.
+2. **Alcides — T14 — M4: Reset y recuperación de la sesión**
+   Reset (`POST /api/session/reset`) y manejo de errores de conexión.
+   **Criterio:** la sesión vuelve a `waiting` tras la interacción.
 
-**Criterio de aceptación:** el entorno virtual funciona y las dependencias están instaladas.
+3. **Said — T15 — M5: Servicio de cámara — completar**
+   Captura de frames, inicio/detención de cámara.
+   **Criterio:** el servicio captura frames y reporta estado.
 
-## Tarea 3 — Yamil — M2: FastAPI, Pydantic y endpoints de salud
+4. **Diego — T16 — M5: Reconocimiento facial**
+   Detección, inscripción con consent, reconocimiento local, validación de confianza, manejo de desconocidos.
+   **Criterio:** solo participantes consensuados y confianza suficiente.
+   *(Nota: por tu instrucción "no desarrolles todavía todo el reconocimiento facial" — esta tarea queda pendiente.)*
 
-- Crear `backend/main.py`: app FastAPI y router de la API.
-- Crear `backend/api/schemas.py`: esquemas Pydantic (SessionState, PersonProfile).
-- Implementar `GET /api/status` y `GET /api/camera/status`.
-- Iniciar el backend y verificar las respuestas de los endpoints.
+5. **Yamil — T17 — M5: Sesión y recomendaciones — integración**
+   Integrar `face_service` + `repository` + `session_service`; recomendaciones por intereses en el flujo de reconocimiento.
+   **Criterio:** sesión al identificar y recomendaciones por intereses.
 
-**Criterio de aceptación:** el backend arranca y devuelve las respuestas de los endpoints de salud.
+6. **Rafael — T18 — M5: Tests de backend**
+   Ampliar `tests/test_api.py` (estados de sesión completos) y pruebas de CV.
+   **Criterio:** tests pasan.
 
-## Tarea 4 — Rafael — M2: Repositorio de perfiles
-
-- Crear `backend/database/repository.py`: carga de `profiles.json`, validación del campo `consent`, `get_profile(id)`.
-- Crear `backend/database/profiles.json` con datos ficticios.
-
-**Criterio de aceptación:** el repositorio carga el JSON y devuelve perfiles públicos válidos.
-
-## Tarea 5 — Said — M2: Endpoints de sesión
-
-- Implementar `GET /api/session` (estados: waiting, processing, recognized, unknown, error).
-- Implementar `POST /api/session/reset` (vuelve a waiting).
-- Verificar con `curl` o `httpx`.
-
-**Criterio de aceptación:** los endpoints devuelven respuestas coherentes.
-
-## Tarea 6 — Diego — M2: Tests del repositorio y endpoints
-
-- Crear `tests/test_database.py` (carga de perfiles, consent, perfiles públicos).
-- Ampliar `tests/test_api.py` con smoke tests de `/api/status` y `/api/session`.
-- Ejecutar `pytest`.
-
-**Criterio de aceptación:** todos los tests pasan.
-
-## Tarea 7 — Yamil — M3: Inicialización de Flet y pantallas
-
-- Crear `frontend/main.py`: app shell de Flet.
-- Crear `frontend/screens/welcome.py`, `waiting.py`, `processing.py`, `recognized.py`, `unknown.py` (plantillas).
-
-**Criterio de aceptación:** la app arranca.
-
-## Tarea 8 — Rafael — M3: Pantallas de bienvenida y espera
-
-- Implementar `frontend/screens/welcome.py` y `frontend/screens/waiting.py`.
-
-**Criterio de aceptación:** pantallas visible y funcionales.
-
-## Tarea 9 —Alcides — M3: Pantallas de procesamiento y visitante desconocido
-
-- Implementar `frontend/screens/processing.py` y `frontend/screens/unknown.py`.
-
-**Criterio de aceptación:** pantallas visible y funcionales.
-
-## Tarea 10 — Said — M3: Pantalla de visitante reconocido
-
-- Implementar `frontend/screens/recognized.py`.
-
-**Criterio de aceptación:** pantalla visible y funcional.
-
-## Tarea 11 — Diego — M4: Tarjetas y componentes visuales
-
-- Crear `frontend/components/profile_card.py`, `interest_card.py`, `recommendation_card.py`.
-- Mantener consistencia visual básica.
-
-**Criterio de aceptación:** componentes reutilizables.
-
-## Tarea 12 — Yamil — M4: Cliente HTTP y sesión
-
-- Crear `frontend/services/api_client.py` con el cliente HTTPX.
-- Implementar polling de sesión: `GET /api/session`.
-
-**Criterio de aceptación:** el cliente consulta el backend periódicamente.
-
-## Tarea 13 — Rafael — M4: Navegación y estados
-
-- Navegación entre pantallas y manejo de estados (cargando, sin conexión, datos recibidos).
-
-**Criterio de aceptación:** la app navega y maneja estados.
-
-## Tarea 14 —Alcides — M4: Reset y recuperación
-
-- Implementar el reset (`POST /api/session/reset`) y el manejo de errores de conexión.
-
-**Criterio de aceptación:** la sesión vuelve a waiting tras la interacción.
-
-## Tarea 15 — Said — M5: Servicio de cámara
-
-- Crear `backend/camera/camera_service.py`: OpenCV (captura, inicio, `get_status()`).
-
-**Criterio de aceptación:** el servicio captura frames y reporta el estado de la cámara.
-
-## Tarea 16 — Diego — M5: Reconocimiento facial
-
-- Crear `backend/recognition/face_service.py`: detección, inscripción con consent, reconocimiento local, validación de confianza, manejo de desconocidos.
-
-**Criterio de aceptación:** solo participantes consensuados y confianza suficiente.
-
-## Tarea 17 — Yamil — M5: Sesión y recomendaciones
-
-- Crear `backend/services/session_service.py` y `backend/services/recommendation.py`.
-
-**Criterio de aceptación:** sesión al identificar y recomendaciones por intereses.
-
-## Tarea 18 — Rafael — M5: Tests de backend
-
-- Ampliar `tests/test_api.py` (estados de sesión completos) y crear `tests/test_recommendations.py`.
-
-**Criterio de aceptación:** tests pasan.
-
-## Tarea 19 —Alcides — M6: Integración final
-
-- Arrancar backend + frontend; verificación E2E; configuración Wi-Fi local (`API_BASE_URL`).
-
-**Criterio de aceptación:** flujo completo funciona.
-
-## Tarea 20 — Said — M6: Documentación
-
-- Crear `docs/architecture.md`, `docs/api_contract.md`, `docs/installation.md`, `docs/team_workflow.md`; actualizar `README.md`.
-
-**Criterio de aceptación:** documentación completa.
-
-## Tarea 21 — Diego — M6: Verificación y cierre
-
-- Ejecutar todos los tests y revisar los criterios de aceptación; ajustes finales.
-
-**Criterio de aceptación:** MVP verificado.
+7. **Alcides — T19 — M6: Integración final**
+   Arrancar backend + frontend, verificación E2E, configuración Wi-Fi local (`API_BASE_URL`).
+   **Criterio:** flujo completo funciona.
