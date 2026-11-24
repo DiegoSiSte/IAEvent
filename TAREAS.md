@@ -14,9 +14,10 @@
 
 ## Estado verificado (revisión reciente)
 
+- **Rafael (subió):** completó T8 — M3: Pantallas de bienvenida y espera: `frontend/screens/welcome.py` y `frontend/screens/waiting.py` implementados con Flet ("Bienvenida al asistente de la feria universitaria" + botón "Comenzar"; "En espera" + "Si te inscribiste y autorizaste el reconocimiento..." + botón "Volver al inicio"), y `frontend/main.py` actualizado con el app shell (navegación welcome ↔ waiting). Commits: `6d91373` ("feat(frontend): add welcome and waiting screens") + merge a main `04c1cab` (PR #2).
+- **Yamil (subió):** branch `feature/yamil-t3-verificacion`, commit `650d7a1` ("docs(api): document live verification for T3"): nuevo `docs/T3-Yamil-verificacion.md` — documenta la verificación en vivo de T3: `GET /api/status` → 200 `{"status":"online","application":"FACEBOT"}`; `GET /api/camera/status` → 200 `{"status":"disconnected","camera_available":false}`; `/openapi.json` → 200 confirmando los modelos `StatusResponse` y `CameraStatusResponse`.
 - **Estructura:** verificada contra la estructura oficial de AGENTS.md (S5): todos los archivos presentes (raíz: `AGENTS.md`, `TAREAS.md`, `README.md`, `requirements.txt`, `.gitignore`, `.env.example`; `backend/`: `main.py`, `api/{routes.py, schemas.py}`, `camera/camera_service.py`, `recognition/face_service.py`, `database/{repository.py, profiles.json}`, `services/{recommendation.py, session_service.py}`; `frontend/`: `main.py`, `screens/{welcome, waiting, processing, recognized, unknown}.py`, `components/{profile_card, interest_card, recommendation_card}.py`, `services/api_client.py`; `tests/`: `test_api.py`, `test_database.py`, `test_recommendations.py`; `docs/`: `architecture.md`, `api_contract.md`, `installation.md`, `team_workflow.md`).
 - **Pruebas:** `pytest` re-ejecutado: **15 passed, 1 warning** (StarletteDeprecationWarning de httpx en TestClient).
-- **Git:** estado limpio (`## main...origin/main`); HEAD = `d4a388f`; `ls-remote` → `refs/heads/main = d4a388fda975fadddb5f2d9f0a8e954f42381b60`.
 - **Endpoints (verificados en vivo):** `GET /api/status` → `{"status":"online","application":"FACEBOT"}`; `GET /api/session` → `{"status":"waiting","person":null}`; `GET /api/camera/status` → `{"status":"disconnected","camera_available":false}`; `GET /api/person/USR001` → perfil de Carlos; `POST /api/session/reset` → `{"status":"waiting","person":null}`.
 
 **A todo momento, a quién le toca primero: Rafael (T13 — M4: Navegación y estados del frontend).**
@@ -29,13 +30,13 @@
 |-------|---------|-----------|--------|
 | T1 | Said | M1: Estructura del proyecto | Hecho |
 | T2 | Diego | M1: Entorno de desarrollo y dependencias | Hecho |
-| T3 | Yamil | M2: FastAPI, Pydantic y endpoints de salud | Hecho (verificado en vivo) |
+| T3 | Yamil | M2: FastAPI, Pydantic y endpoints de salud | Hecho (verificado en vivo, documentado: `docs/T3-Yamil-verificacion.md` — branch `feature/yamil-t3-verificacion`, `650d7a1`) |
 | T4 | Rafael | M2: Repositorio de perfiles | Hecho |
 | T5 | Said | M2: Endpoints de sesión | Hecho (verificado en vivo) |
 | T6 | Diego | M2: Tests del repositorio y endpoints | Hecho (`pytest`: 15 passed) |
-| T7 | Yamil | M3: Inicialización de Flet y pantallas skeleton | Esqueleto |
-| T8 | Rafael | M3: Pantallas de bienvenida y espera (skeletons) | Esqueleto |
-| T9 | Alcides | M3: Pantallas de procesamiento y visitante desconocido (skeletons) | Esqueleto |
+| T7 | Yamil | M3: Inicialización de Flet y pantallas skeleton | Esqueleto (actualizado: app shell y welcome/waiting realizados por Rafael en merge `04c1cab`) |
+| T8 | Rafael | M3: Pantallas de bienvenida y espera | Hecho (subido: `6d91373`, merge `04c1cab` — branch `feature/rafael-welcome-waiting`) |
+| T9 |Alcides | M3: Pantallas de procesamiento y visitante desconocido (skeletons) | Esqueleto |
 | T10 | Said | M3: Pantalla de visitante reconocido (skeleton) | Esqueleto |
 | T11 | Diego | M4: Tarjetas y componentes visuales (skeletons) | Esqueleto |
 | T12 | Yamil | M4: Cliente HTTP (`api_client.py`) | Parcial (sin polling real) |
