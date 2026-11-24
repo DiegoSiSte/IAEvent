@@ -8,7 +8,11 @@ import flet as ft
 class WaitingScreen(ft.Column):
     """Indica al visitante cómo prepararse y permite volver al inicio."""
 
-    def __init__(self, on_back: Callable[[ft.Event[ft.Button]], None]) -> None:
+    def __init__(
+        self,
+        on_back: Callable[[ft.Event], None],
+        on_scan: Callable[[ft.Event], None],
+    ) -> None:
         super().__init__(
             horizontal_alignment=ft.CrossAxisAlignment.CENTER,
             spacing=20,
@@ -36,12 +40,23 @@ class WaitingScreen(ft.Column):
                     color="#BAC9DB",
                     text_align=ft.TextAlign.CENTER,
                 ),
-                ft.Button(
-                    "Volver al inicio",
-                    icon=ft.Icons.ARROW_BACK,
-                    height=48,
-                    color="#6DE8D1",
-                    on_click=on_back,
+                ft.Row(
+                    alignment=ft.MainAxisAlignment.CENTER,
+                    controls=[
+                        ft.Button(
+                            "Volver",
+                            icon=ft.Icons.ARROW_BACK,
+                            color="#6DE8D1",
+                            on_click=on_back,
+                        ),
+                        ft.Button(
+                            "Escanear",
+                            icon=ft.Icons.CAMERA_ALT,
+                            bgcolor="#6DE8D1",
+                            color="#10222B",
+                            on_click=on_scan,
+                        ),
+                    ],
                 ),
             ],
         )

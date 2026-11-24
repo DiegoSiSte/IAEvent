@@ -1,7 +1,7 @@
 # Backend (S3 REQUIRED TECHNOLOGIES)
 fastapi==0.165.0
 uvicorn==0.54.0
-opencv-python==5.1.0.95
+opencv-contrib-python==5.1.0.95
 pydantic==2.14.4
 
 # Frontend (S3 REQUIRED TECHNOLOGIES)

@@ -17,3 +17,4 @@ dist/
 
 # Camera/biometric artifacts (not committed by default, S10)
 *.mp4
+.face_templates/

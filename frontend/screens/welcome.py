@@ -8,7 +8,11 @@ import flet as ft
 class WelcomeScreen(ft.Column):
     """Presenta FACEBOT y permite iniciar una interacción."""
 
-    def __init__(self, on_start: Callable[[ft.Event[ft.Button]], None]) -> None:
+    def __init__(
+        self,
+        on_start: Callable[[ft.Event[ft.Button]], None],
+        on_enroll: Callable[[ft.Event[ft.Button]], None],
+    ) -> None:
         super().__init__(
             horizontal_alignment=ft.CrossAxisAlignment.CENTER,
             spacing=20,
@@ -42,6 +46,11 @@ class WelcomeScreen(ft.Column):
                     bgcolor="#6DE8D1",
                     color="#10222B",
                     on_click=on_start,
+                ),
+                ft.Button(
+                    "Inscribir participante",
+                    icon=ft.Icons.PERSON_ADD,
+                    on_click=on_enroll,
                 ),
             ],
         )

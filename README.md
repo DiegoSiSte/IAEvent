@@ -8,7 +8,8 @@ Cliente-servidor modular (S4): [docs/architecture.md](docs/architecture.md).
 
 - Backend: FastAPI (S4), repositorio JSON (S8), sesión (S7), recomendaciones (S2 obj. 7).
 - Frontend: Flet (S4).
-- Base actual: skeleton del frontend (M3/M4); reconocimiento facial en esquema (M5).
+- Frontend integrado con el backend y flujo de reconocimiento operativo.
+ - Reconocimiento facial local con OpenCV LBPH, plantillas separadas y consentimiento.
 
 ## Estructura
 

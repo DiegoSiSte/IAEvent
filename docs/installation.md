@@ -23,7 +23,7 @@ Edita `.env`: `HOST`, `PORT`, `API_BASE_URL` (URL local del backend, sin IP hard
 ## 3. Iniciar el backend
 
 ```bash
-.venv\Scripts\uvicorn backend.main:app
+.venv\Scripts\uvicorn backend.main:app --host 0.0.0.0 --port 8000
 ```
 
 (O `uvicorn backend.main:app` desde la raíz del proyecto.)
@@ -34,8 +34,31 @@ Edita `.env`: `HOST`, `PORT`, `API_BASE_URL` (URL local del backend, sin IP hard
 .venv\Scripts\python -m pytest
 ```
 
-## 5. Base actual del proyecto
+## 5. Ejecutar el frontend
 
-- Backend funcional: endpoints `GET /api/status`, `GET /api/camera/status`, `GET /api/session`, `GET /api/person/{id}`, `POST /api/session/reset` (S7).
-- Skeleton del frontend (`frontend/`): implementación visual (Ashly, M3; API: Rafael, M4).
-- Reconocimiento facial: skeleton en `backend/recognition/face_service.py` (implementación: Yamil, M5).
+```bash
+.venv\Scripts\python frontend\main.py
+```
+
+El frontend usa `API_BASE_URL`. En la bienvenida, **Inscribir participante**
+abre la pantalla de inscripción: escribe un ID que tenga `consent: true` en
+`backend/database/profiles.json`, confirma la autorización y selecciona una
+foto JPG o PNG (máximo 8 MB, un rostro visible). Después, **Comenzar** lleva a
+la pantalla de espera y **Escanear** usa la cámara conectada al backend.
+
+## 6. Inscripción facial
+
+Antes de reconocer a una persona, debe existir su perfil consentido en
+`backend/database/profiles.json`. La inscripción puede hacerse por API:
+
+```text
+POST /api/recognition/enroll/{profile_id}
+{"image_base64":"<imagen JPEG o PNG codificada>"}
+```
+
+Las plantillas faciales se almacenan localmente en `.face_templates/` y no se
+exponen por la API. Para eliminarlas:
+
+```text
+DELETE /api/recognition/{profile_id}
+```

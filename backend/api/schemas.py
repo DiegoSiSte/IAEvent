@@ -6,7 +6,7 @@ from pydantic import BaseModel
 
 
 class Recommendation(BaseModel):
-    """Recomendación de un proyecto universitario (S7 / S8)."""
+    """Recomendación de un proyecto universitario (§7 / §8)."""
 
     title: str
     description: str
@@ -14,7 +14,7 @@ class Recommendation(BaseModel):
 
 
 class PersonProfile(BaseModel):
-    """Perfil público de un participante identificado (S7 GET /api/session)."""
+    """Perfil público de un participante identificado (§7 GET /api/session)."""
 
     id: str
     name: str
@@ -24,21 +24,35 @@ class PersonProfile(BaseModel):
 
 
 class StatusResponse(BaseModel):
-    """Disponibilidad del backend (S7 GET /api/status)."""
+    """Disponibilidad del backend (§7 GET /api/status)."""
 
     status: str
     application: str
 
 
 class CameraStatusResponse(BaseModel):
-    """Estado de la cámara (S7 GET /api/camera/status)."""
+    """Estado de la cámara (§7 GET /api/camera/status)."""
 
     status: str
     camera_available: bool
 
 
 class SessionStateResponse(BaseModel):
-    """Estado de la sesión (S7 GET /api/session)."""
+    """Estado de la sesión (§7 GET /api/session)."""
 
     status: str
     person: Optional[PersonProfile] = None
+
+
+class EnrollRequest(BaseModel):
+    """Solicitud de inscripción de un rostro (§5, §10)."""
+
+    image_base64: str
+
+
+class EnrollResponse(BaseModel):
+    """Respuesta de inscripción (§5, §10)."""
+
+    status: str
+    profile_id: str
+    template_count: int
